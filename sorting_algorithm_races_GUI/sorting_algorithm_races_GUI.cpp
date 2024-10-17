@@ -42,8 +42,14 @@ sorting_algorithm_races_GUI::sorting_algorithm_races_GUI(QWidget* parent)
         ui.labelStableSortTime->setText("Stable Sort time: " + QLocale().toString(duration) + " ms.");
         });
 
+    // Domyœlna wartoœæ suwaka i delay dla ka¿dego wizualizatora
+    int defaultDelay = 50;
+    ui.speedSlider->setValue(defaultDelay);
+    visualizer1->setDelay(defaultDelay);
+    visualizer2->setDelay(defaultDelay);
+    visualizer3->setDelay(defaultDelay);
 
-    on_resetButton_clicked();  // Generujemy losowe liczby na pocz¹tek
+    on_resetButton_clicked();
 }
 
 sorting_algorithm_races_GUI::~sorting_algorithm_races_GUI()
@@ -82,7 +88,7 @@ void sorting_algorithm_races_GUI::on_resetButton_clicked() {
 void sorting_algorithm_races_GUI::on_speedSlider_valueChanged(int value)
 {
     // Setting animation speed for each visualizer
-    visualizer1->setDelay(1000 - value);
-    visualizer2->setDelay(1000 - value);
-    visualizer3->setDelay(1000 - value);
+    visualizer1->setDelay(100 - value);
+    visualizer2->setDelay(100 - value);
+    visualizer3->setDelay(100 - value);
 }

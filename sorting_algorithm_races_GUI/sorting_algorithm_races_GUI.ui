@@ -34,6 +34,15 @@
       <property name="maximum">
        <number>100</number>
       </property>
+      <property name="singleStep">
+       <number>10</number>
+      </property>
+      <property name="pageStep">
+       <number>25</number>
+      </property>
+      <property name="value">
+       <number>50</number>
+      </property>
       <property name="orientation">
        <enum>Qt::Orientation::Horizontal</enum>
       </property>
@@ -65,7 +74,7 @@
     <item row="2" column="0">
      <widget class="QLabel" name="labelStableSortTime">
       <property name="text">
-       <string>Stable Sort Time</string>
+       <string>Stable Sort Time.</string>
       </property>
      </widget>
     </item>
