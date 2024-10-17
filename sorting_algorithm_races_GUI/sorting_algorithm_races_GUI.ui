@@ -15,15 +15,6 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout_3">
-    <item row="0" column="0" colspan="3">
-     <layout class="QVBoxLayout" name="verticalLayout_1"/>
-    </item>
-    <item row="1" column="0" colspan="3">
-     <layout class="QVBoxLayout" name="verticalLayout_2"/>
-    </item>
-    <item row="2" column="0" colspan="3">
-     <layout class="QVBoxLayout" name="verticalLayout_3"/>
-    </item>
     <item row="3" column="0">
      <widget class="QPushButton" name="startButton">
       <property name="text">
@@ -45,6 +36,36 @@
       </property>
       <property name="orientation">
        <enum>Qt::Orientation::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1" colspan="2">
+     <layout class="QVBoxLayout" name="verticalLayout_1"/>
+    </item>
+    <item row="1" column="1" colspan="2">
+     <layout class="QVBoxLayout" name="verticalLayout_2"/>
+    </item>
+    <item row="2" column="1" colspan="2">
+     <layout class="QVBoxLayout" name="verticalLayout_3"/>
+    </item>
+    <item row="0" column="0">
+     <widget class="QLabel" name="labelQuickSortTime">
+      <property name="text">
+       <string>Quick Sort time.</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="labelHeapSortTime">
+      <property name="text">
+       <string>Heap Sort Time.</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="labelStableSortTime">
+      <property name="text">
+       <string>Stable Sort Time</string>
       </property>
      </widget>
     </item>

@@ -4,6 +4,7 @@
 #include "ui_sorting_algorithm_races_GUI.h"
 #include "sortingvisualizer.h"  // Adding a new widget for visualization
 #include <set>
+#include <QLocale>
 
 void create_pool(std::vector<int>& v, int size);
 

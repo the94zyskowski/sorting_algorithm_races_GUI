@@ -18,10 +18,16 @@ void SortingVisualizer::setNumbers(const QVector<int>& numbers)
 
 void SortingVisualizer::startSorting(void (*sortingFunction)(QVector<int>&, SortingVisualizer*)) {
     this->sortingFunction = sortingFunction;
-    // We start sorting in a separate thread
+
     QtConcurrent::run([=]() {
+        QElapsedTimer timer;
+        timer.start();
+
         sortingFunction(numbers, this);
-        QMetaObject::invokeMethod(this, "updateVisualization", Qt::QueuedConnection);  // Extra refresh after sorting
+
+        qint64 duration = timer.elapsed();  // Czas trwania sortowania
+        QMetaObject::invokeMethod(this, "updateVisualization", Qt::QueuedConnection);  // Dodatkowe odœwie¿enie po zakoñczeniu sortowania
+        emit sortingFinished(duration);  // Emitujemy sygna³ z czasem po zakoñczeniu sortowania
         });
 }
 

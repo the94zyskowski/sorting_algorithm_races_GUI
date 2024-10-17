@@ -19,17 +19,31 @@ sorting_algorithm_races_GUI::sorting_algorithm_races_GUI(QWidget* parent)
 {
     ui.setupUi(this);
 
-    // Initializing three sorting visualizers
+    // Inicjalizujemy trzy wizualizatory sortowania
     visualizer1 = new SortingVisualizer(this);
     visualizer2 = new SortingVisualizer(this);
     visualizer3 = new SortingVisualizer(this);
 
-    // Adding widgets to layouts in the UI (layouts must be added in .ui file)
+    // Dodajemy widgety do layoutów w UI
     ui.verticalLayout_1->addWidget(visualizer1);
     ui.verticalLayout_2->addWidget(visualizer2);
     ui.verticalLayout_3->addWidget(visualizer3);
 
-    on_resetButton_clicked();  // Generating random numbers at the start
+    // £¹czymy sygna³y wizualizatorów z odpowiednimi funkcjami do aktualizacji etykiet
+    connect(visualizer1, &SortingVisualizer::sortingFinished, this, [&](qint64 duration) {
+        ui.labelQuickSortTime->setText("Quick Sort time: " + QLocale().toString(duration) + " ms.");
+        });
+
+    connect(visualizer2, &SortingVisualizer::sortingFinished, this, [&](qint64 duration) {
+        ui.labelHeapSortTime->setText("Heap Sort time: " + QLocale().toString(duration) + " ms.");
+        });
+
+    connect(visualizer3, &SortingVisualizer::sortingFinished, this, [&](qint64 duration) {
+        ui.labelStableSortTime->setText("Stable Sort time: " + QLocale().toString(duration) + " ms.");
+        });
+
+
+    on_resetButton_clicked();  // Generujemy losowe liczby na pocz¹tek
 }
 
 sorting_algorithm_races_GUI::~sorting_algorithm_races_GUI()

@@ -23,6 +23,8 @@ protected:
 
 public slots:
     void updateVisualization();
+signals:
+    void sortingFinished(qint64 duration);
 
 private:
     QVector<int> numbers;
