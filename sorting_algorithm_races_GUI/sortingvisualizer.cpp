@@ -13,6 +13,7 @@ SortingVisualizer::SortingVisualizer(QWidget* parent)
 void SortingVisualizer::setNumbers(const QVector<int>& numbers)
 {
     this->numbers = numbers;
+    colors = QVector<QColor>(numbers.size(), Qt::blue);  // Inicjalizacja kolorów na niebiesko
     update();
 }
 
@@ -25,9 +26,9 @@ void SortingVisualizer::startSorting(void (*sortingFunction)(QVector<int>&, Sort
 
         sortingFunction(numbers, this);
 
-        qint64 duration = timer.elapsed();  // Czas trwania sortowania
-        QMetaObject::invokeMethod(this, "updateVisualization", Qt::QueuedConnection);  // Dodatkowe odœwie¿enie po zakoñczeniu sortowania
-        emit sortingFinished(duration);  // Emitujemy sygna³ z czasem po zakoñczeniu sortowania
+        qint64 duration = timer.elapsed();
+        QMetaObject::invokeMethod(this, "updateVisualization", Qt::QueuedConnection);
+        emit sortingFinished(duration);
         });
 }
 
@@ -35,28 +36,37 @@ void SortingVisualizer::setDelay(int delay) {
     this->delay = delay;
 }
 
-// Getter for delay
 int SortingVisualizer::getDelay() const {
     return delay;
 }
 
-// Function responsible for refreshing the visualization
+// Ustawia kolor dla konkretnego s³upka
+void SortingVisualizer::setBarColor(int index, QColor color) {
+    if (index >= 0 && index < colors.size()) {
+        colors[index] = color;
+    }
+}
+
+// Resetuje wszystkie kolory do domyœlnego niebieskiego
+void SortingVisualizer::resetColors() {
+    colors.fill(Qt::blue);
+}
+
+// Rysowanie s³upków z uwzglêdnieniem ich kolorów
 void SortingVisualizer::paintEvent(QPaintEvent* event)
 {
     QPainter painter(this);
-    painter.setBrush(Qt::blue);
     int barWidth = width() / numbers.size();
 
     for (int i = 0; i < numbers.size(); ++i) {
+        painter.setBrush(colors[i]);
         int barHeight = numbers[i];
         painter.drawRect(i * barWidth, height() - barHeight, barWidth - 1, barHeight);
     }
 }
 
-// Refreshing the visualization only in the GUI thread
 void SortingVisualizer::updateVisualization()
 {
-    // We use QMetaObject::invokeMethod to ensure that the GUI updates in the main thread
     QMetaObject::invokeMethod(this, "repaint", Qt::QueuedConnection);
     timer->start(delay);
 }

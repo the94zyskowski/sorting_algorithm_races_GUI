@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QVector>
 #include <QTimer>
+#include <QColor>
 
 class SortingVisualizer : public QWidget
 {
@@ -14,22 +15,26 @@ public:
     void setNumbers(const QVector<int>& numbers);
     void startSorting(void (*sortingFunction)(QVector<int>&, SortingVisualizer*));
 
-    // Getter and setter for delay
-    int getDelay() const;        // Getter
-    void setDelay(int delay);    // Setter
+    int getDelay() const;
+    void setDelay(int delay);
+
+    void setBarColor(int index, QColor color);  // Ustawia kolor konkretnego s³upka
+    void resetColors();  // Resetuje kolory wszystkich s³upków do domyœlnego niebieskiego
 
 protected:
     void paintEvent(QPaintEvent* event) override;
 
 public slots:
     void updateVisualization();
+
 signals:
     void sortingFinished(qint64 duration);
 
 private:
     QVector<int> numbers;
+    QVector<QColor> colors;  // Kolory dla ka¿dego s³upka
     QTimer* timer;
-    int delay;  // We can control it with getter and setter
+    int delay;
     void (*sortingFunction)(QVector<int>&, SortingVisualizer*);
 };
 
