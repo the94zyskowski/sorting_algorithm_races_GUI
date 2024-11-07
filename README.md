@@ -9,6 +9,7 @@ This is a fun and educational project that visualizes sorting algorithms in a gr
 - **Real-time animation**: Sorting progress is displayed in real time as columns are rearranged.
 - **Adjustable sorting speed**: Use a slider to control the speed of the sorting animation.
 - **Reset functionality**: Easily reset and regenerate the data set to visualize the sorting process again.
+- **Improved visibility**: Red marker added for currently checked element.
   
 ## Technologies Used
 - **Qt Widgets** for GUI elements (QSlider, QPushButton, QVBoxLayout).
@@ -16,8 +17,7 @@ This is a fun and educational project that visualizes sorting algorithms in a gr
 - **Visual Studio 2022** as the development environment.
 
 ## To Do
-1. Improve visualization by adding color-coded animations to indicate swaps or sorted sections.
-2. Implement pause and resume functionality for sorting.
+1. Implement pause and resume functionality for sorting.
 
 ## How to Run
 1. Clone the project.
