@@ -16,9 +16,8 @@ This is a fun and educational project that visualizes sorting algorithms in a gr
 - **Visual Studio 2022** as the development environment.
 
 ## To Do
-1. Add more sorting algorithms (e.g., Merge Sort, Bubble Sort).
-2. Improve visualization by adding color-coded animations to indicate swaps or sorted sections.
-3. Implement pause and resume functionality for sorting.
+1. Improve visualization by adding color-coded animations to indicate swaps or sorted sections.
+2. Implement pause and resume functionality for sorting.
 
 ## How to Run
 1. Clone the project.
