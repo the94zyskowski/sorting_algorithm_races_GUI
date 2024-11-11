@@ -2,7 +2,7 @@
 
 #include <QtWidgets/QMainWindow>
 #include "ui_sorting_algorithm_races_GUI.h"
-#include "sortingvisualizer.h"  // Adding a new widget for visualization
+#include "sortingvisualizer.h"
 #include <set>
 #include <QLocale>
 
@@ -17,13 +17,16 @@ public:
     ~sorting_algorithm_races_GUI();
 
 private slots:
-    void on_startButton_clicked();  // Slot for Start button
-    void on_resetButton_clicked();  // Slot for Reset button
-    void on_speedSlider_valueChanged(int value);  // Slot for speed slider
+    void on_startButton_clicked();                // Handles Start button clicks
+    void on_resetButton_clicked();                // Handles Reset button clicks
+    void on_speedSlider_valueChanged(int value);  // Adjusts delay based on slider value
 
 private:
     Ui::sorting_algorithm_races_GUIClass ui;
-    SortingVisualizer* visualizer1;  // Three widgets for visualization
+    SortingVisualizer* visualizer1;
     SortingVisualizer* visualizer2;
     SortingVisualizer* visualizer3;
+    bool isSorting = false;  // Tracks whether sorting is currently active
+
+    void toggleSorting();  // Toggles between starting and pausing sorting
 };

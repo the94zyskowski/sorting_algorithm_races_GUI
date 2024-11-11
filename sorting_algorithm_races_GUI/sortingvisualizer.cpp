@@ -13,12 +13,13 @@ SortingVisualizer::SortingVisualizer(QWidget* parent)
 void SortingVisualizer::setNumbers(const QVector<int>& numbers)
 {
     this->numbers = numbers;
-    colors = QVector<QColor>(numbers.size(), Qt::blue);  // Inicjalizacja kolorów na niebiesko
+    colors = QVector<QColor>(numbers.size(), Qt::blue);
     update();
 }
 
 void SortingVisualizer::startSorting(void (*sortingFunction)(QVector<int>&, SortingVisualizer*)) {
     this->sortingFunction = sortingFunction;
+    isPaused = false;
 
     QtConcurrent::run([=]() {
         QElapsedTimer timer;
@@ -32,6 +33,20 @@ void SortingVisualizer::startSorting(void (*sortingFunction)(QVector<int>&, Sort
         });
 }
 
+void SortingVisualizer::pauseSorting() {
+    isPaused = true;
+}
+
+void SortingVisualizer::resumeSorting(void (*sortingFunction)(QVector<int>&, SortingVisualizer*)) {
+    if (isPaused) {
+        isPaused = false;
+        updateVisualization();  // Resume updating
+    }
+    else {
+        startSorting(sortingFunction);  // Start if not already running
+    }
+}
+
 void SortingVisualizer::setDelay(int delay) {
     this->delay = delay;
 }
@@ -40,19 +55,16 @@ int SortingVisualizer::getDelay() const {
     return delay;
 }
 
-// Ustawia kolor dla konkretnego s³upka
 void SortingVisualizer::setBarColor(int index, QColor color) {
     if (index >= 0 && index < colors.size()) {
         colors[index] = color;
     }
 }
 
-// Resetuje wszystkie kolory do domyœlnego niebieskiego
 void SortingVisualizer::resetColors() {
     colors.fill(Qt::blue);
 }
 
-// Rysowanie s³upków z uwzglêdnieniem ich kolorów
 void SortingVisualizer::paintEvent(QPaintEvent* event)
 {
     QPainter painter(this);
@@ -67,6 +79,8 @@ void SortingVisualizer::paintEvent(QPaintEvent* event)
 
 void SortingVisualizer::updateVisualization()
 {
-    QMetaObject::invokeMethod(this, "repaint", Qt::QueuedConnection);
-    timer->start(delay);
+    if (!isPaused) {
+        QMetaObject::invokeMethod(this, "repaint", Qt::QueuedConnection);
+        timer->start(delay);
+    }
 }

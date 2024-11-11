@@ -14,12 +14,13 @@ public:
     explicit SortingVisualizer(QWidget* parent = nullptr);
     void setNumbers(const QVector<int>& numbers);
     void startSorting(void (*sortingFunction)(QVector<int>&, SortingVisualizer*));
-
+    void pauseSorting();       // Pauses the sorting process
+    void resumeSorting(void (*sortingFunction)(QVector<int>&, SortingVisualizer*));  // Resumes the sorting process
     int getDelay() const;
     void setDelay(int delay);
 
-    void setBarColor(int index, QColor color);  // Ustawia kolor konkretnego s³upka
-    void resetColors();  // Resetuje kolory wszystkich s³upków do domyœlnego niebieskiego
+    void setBarColor(int index, QColor color);
+    void resetColors();
 
 protected:
     void paintEvent(QPaintEvent* event) override;
@@ -32,9 +33,10 @@ signals:
 
 private:
     QVector<int> numbers;
-    QVector<QColor> colors;  // Kolory dla ka¿dego s³upka
+    QVector<QColor> colors;
     QTimer* timer;
     int delay;
+    bool isPaused = false;  // Tracks pause state
     void (*sortingFunction)(QVector<int>&, SortingVisualizer*);
 };
 
